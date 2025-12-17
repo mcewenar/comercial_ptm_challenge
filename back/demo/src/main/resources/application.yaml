@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ptm-backend
+
+  #datasource:
+  #  url: jdbc:mysql://localhost:3306/crud_app?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+  #  username: root
+  #  password: root
+  #  driver-class-name: com.mysql.cj.jdbc.Driver
+
+  datasource:
+    url: jdbc:h2:mem:ptmdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql:
+    init:
+      mode: always
