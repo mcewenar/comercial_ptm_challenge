@@ -1,13 +1,13 @@
 package com.mcewen.ptm.controller;
 
-import com.mcewen.ptm.domain.Product;
-import com.mcewen.ptm.dto.ProductCombinationResponse;
+import com.mcewen.ptm.dto.ProductCreateRequest;
+import com.mcewen.ptm.dto.ProductResponse;
+import com.mcewen.ptm.dto.ProductUpdateRequest;
 import com.mcewen.ptm.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -22,26 +22,23 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Product create(@Valid @RequestBody Product product) {
-        return service.create(product);
-    }
-
-    @PutMapping("/{id}")
-    public Product update(
-            @PathVariable Long id,
-            @Valid @RequestBody Product product
-    ) {
-        return service.update(id, product);
-    }
-
-    @GetMapping("/{id}")
-    public Product findById(@PathVariable Long id) {
-        return service.findById(id);
+    public ProductResponse create(@Valid @RequestBody ProductCreateRequest req) {
+        return service.create(req);
     }
 
     @GetMapping
-    public List<Product> findAll() {
+    public List<ProductResponse> findAll() {
         return service.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ProductResponse findById(@PathVariable Long id) {
+        return service.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ProductResponse update(@PathVariable Long id, @Valid @RequestBody ProductUpdateRequest req) {
+        return service.update(id, req);
     }
 
     @DeleteMapping("/{id}")
@@ -49,11 +46,4 @@ public class ProductController {
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }
-
-
-    @GetMapping("/combinations")
-    public List<ProductCombinationResponse> getBestCombinations(@RequestParam BigDecimal budget) {
-        return service.findBestCombinations(budget);
-    }
-
 }

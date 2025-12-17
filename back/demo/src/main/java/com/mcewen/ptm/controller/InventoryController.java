@@ -1,11 +1,9 @@
 package com.mcewen.ptm.controller;
 
-import com.mcewen.ptm.domain.Product;
+import com.mcewen.ptm.dto.InventoryMaxResponse;
+import com.mcewen.ptm.dto.InventoryTotalResponse;
 import com.mcewen.ptm.service.ProductService;
 import org.springframework.web.bind.annotation.*;
-
-import java.math.BigDecimal;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/inventory")
@@ -18,12 +16,12 @@ public class InventoryController {
     }
 
     @GetMapping("/total")
-    public Map<String, BigDecimal> getTotalInventoryValue() {
-        return Map.of("total", service.calculateTotalInventoryValue());
+    public InventoryTotalResponse total() {
+        return service.inventoryTotal();
     }
 
     @GetMapping("/max")
-    public Product getProductWithMaxInventoryValue() {
-        return service.findProductWithMaxInventoryValue();
+    public InventoryMaxResponse max() {
+        return service.inventoryMax();
     }
 }

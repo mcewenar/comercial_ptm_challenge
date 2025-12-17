@@ -7,12 +7,10 @@ import lombok.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "product",
-        indexes = { @Index(name = "idx_product_name", columnList = "name")}
-)
+@Table(name = "product")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Product {
@@ -31,9 +29,7 @@ public class Product {
     private String description;
 
     @NotNull
-    @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 13, fraction = 2)
-    @Column(nullable = false, precision = 15, scale = 2)
+    @Column(nullable=false, precision=15, scale=2)
     private BigDecimal price;
 
     @NotNull
